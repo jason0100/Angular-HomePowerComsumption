@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-md-4">
+            <form [formGroup]="floorForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+                <h4>Add new Floor</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control " formControlName="name" placeholder="Name"required />
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger ">
+                        <div *ngIf="name.errors.required">
+                            Name is required.
+                        </div>
+                    </div>
+                </div>
+
+                <button [disabled]="floorForm.invalid" class="btn-primary btn mr-2">Submit</button>
+                <button class="btn btn-outline-primary  mr-2" (click)="onReset()">Clear</button>
+            </form>
+            <p>
+                submitted :{{submitted }}
+            </p>
+            <p [ngClass]="{isSuccess:isSuccess, isFail:!isSuccess}">{{msg}}</p>
+        </div>
+        <div class="col-md-4">
+            <app-floor></app-floor>
+        </div>
+
+    </div>
+    
+</div>

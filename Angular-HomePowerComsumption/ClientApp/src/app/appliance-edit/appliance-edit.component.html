@@ -1,0 +1,116 @@
+
+
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-md-6">
+            <form [formGroup]="ApplianceForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+                <h4>{{title}}</h4>
+                <div class="form-group" hidden>
+                   
+                    <input type="text" class="form-control " formControlName="id" />
+                  
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input type="text" class="form-control " formControlName="name" placeholder="Name" required />
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger ">
+                        <div *ngIf="name.errors.required">
+                            Name is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control " formControlName="spec" placeholder="Spec" />
+
+                </div>
+                <div class="form-group">
+
+                    <input type="number" class="form-control " min="0" formControlName="voltage" placeholder="Voltage" required />
+                    <div *ngIf="voltage.invalid && (voltage.dirty || voltage.touched)" class="text-danger">
+                        <div *ngIf="voltage.errors.required">
+                            voltage is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">kwh</label>
+                    <input type="number" class="form-control " min="0" formControlName="kwh" placeholder="KWH" required />
+                    <div *ngIf="kwh.invalid && (kwh.dirty || kwh.touched)" class="text-danger">
+                        <div *ngIf="kwh.errors.required">
+                            kwh is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">watt</label>
+                    <input type="number" class="form-control " min="0" formControlName="watt" placeholder="watt" required />
+                    <div *ngIf="watt.invalid && (watt.dirty || watt.touched)" class="text-danger">
+                        <div *ngIf="watt.errors.required">
+                            watt is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Useage Hour per Month</label>
+                    <input type="number" class="form-control " formControlName="useHrPerMonth" placeholder="useHrPerMonth" min="0" />
+                    <div *ngIf="useHrPerMonth.invalid && (useHrPerMonth.dirty || useHrPerMonth.touched)" class="text-danger ">
+                        <div *ngIf="useHrPerMonth.errors.required">
+                            useHrPerMonth is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <input type="text" class="form-control " formControlName="description" placeholder="Description" />
+                    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger ">
+                        <div *ngIf="description.errors.required">
+                            <!--   Name is required.-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" formControlName="floorId">
+                        <option value="" selected disabled hidden>Select Floor</option>
+                        <option *ngFor="let f of floors" value={{f.id}}>{{f.floorName}}樓層</option>
+                    </select>
+
+                    <div *ngIf="floorId.invalid && (floorId.dirty || floorId.touched)" class="text-danger ">
+                        <div *ngIf="FloorId.errors.required">
+                            Floor is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" formControlName="watthourMeterId">
+                        <option value="" selected disabled hidden>Select WattHourMeter</option>
+                        <option *ngFor="let m of kwhMeters" value={{m.id}}>{{m.wattHourMeterName}}電表</option>
+                    </select>
+
+                    <div *ngIf="watthourMeterId.invalid && (watthourMeterId.dirty || watthourMeterId.touched)" class="text-danger ">
+                        <div *ngIf="WatthourMeterId.errors.required">
+                            WattHourMeter is required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <button [disabled]="ApplianceForm.invalid" class="btn-primary btn mr-2" (click)="onSubmit">Submit</button>
+                <button class="btn btn-outline-primary  mr-2 float-right" (click)="onReset()">Clear</button>
+            </form>
+            <p>
+                submitted :{{submitted }}
+            </p>
+            <p [ngClass]="{isSuccess:isSuccess, isFail:!isSuccess}">{{msg}}</p>
+        </div>
+        <div class="col-md-6">
+            <app-appliance></app-appliance>
+        </div>
+
+    </div>
+
+</div>

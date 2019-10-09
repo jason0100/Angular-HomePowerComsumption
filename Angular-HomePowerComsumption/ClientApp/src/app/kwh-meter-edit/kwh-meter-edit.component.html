@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-md-4">
+            <form [formGroup]="kwhForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+                <h4>Add new KwhMeter</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control " formControlName="name" placeholder="Name" required />
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger ">
+                        <div *ngIf="name.errors.required">
+                            FirstName is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" class="form-control" formControlName="kwh" required min=0 /><span class="text-secondary">Default KWH value is 0.</span>
+                    <div *ngIf="kwh.invalid && (kwh.dirty || kwh.touched)" class="text-danger">
+                        <div *ngIf="kwh.errors.pattern">
+                            KWH should be a positive integer.
+                        </div>
+                        <div *ngIf="kwh.errors.required">
+                            KWH is required.
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="kwhForm.invalid" class="btn-primary btn mr-2">Submit</button>
+                <button class="btn btn-outline-primary  mr-2" (click)="onReset()">Clear</button>
+            </form>
+            <p>
+                submitted :{{submitted }}
+            </p>
+            <p [ngClass]="{isSuccess:isSuccess, isFail:!isSuccess}" >{{msg}}</p>
+        </div>
+        <div class="col-md-4">
+            <app-kwh-meter ></app-kwh-meter>
+        </div>
+
+    </div>
+    <div class="row" [hidden]="!submitted">
+        <div class="col-12">
+            <h2>Result</h2>
+            <p>{{result}}</p>
+        </div>
+    </div>
+</div>

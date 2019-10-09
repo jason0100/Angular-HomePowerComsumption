@@ -1,0 +1,12 @@
+.fa-trash, .fa-pen, .fa-save {
+    color: grey;
+    cursor: pointer;
+}
+
+.isSuccess {
+    color: green;
+}
+
+.isFail {
+    color: red;
+}

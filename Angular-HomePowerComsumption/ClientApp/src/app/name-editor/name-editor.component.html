@@ -1,0 +1,75 @@
+<label>
+  Name:
+<input type="text" [formControl]="name">
+</label>
+<p>
+    <button (click)="updateName()">Update Name</button>
+</p>
+<p>
+    Value: {{ name.value }}
+</p>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+    <label>
+        First Name:
+        <input type="text" id="firstName" formControlName="firstName" placeholder="FirstName" required />
+    </label>
+    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+         class="alert alert-danger">
+
+        <div *ngIf="firstName.errors.required">
+            firstName is required.
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+            firstName must be at least 4 characters long.
+        </div>
+        <div *ngIf="firstName.errors.forbiddenName">
+            Name cannot be Bob.
+        </div>
+    </div>
+    
+    <br />
+    <label>
+        Last Name:
+        <input type="text" formControlName="lastName" />
+    </label>
+
+    <div formGroupName="address">
+        <h3>Address</h3>
+        <label>
+            Street:
+            <input type="text" formControlName="street" />
+        </label>
+        <br />
+        <label>
+            City:
+            <input type="text" formControlName="city" />
+        </label>
+        <br />
+        <label>
+            State:
+            <input type="text" formControlName="state" />
+        </label>
+        <br />
+        <label>
+            Zip code:
+            <input type="text" formControlName="zip" />
+        </label>
+        <br />
+    </div>
+    <div formArrayName="aliases">
+        <h3>Aliases</h3><button (click)="addAlias()">New Alias</button>
+        <div *ngFor="let item of aliases.controls; let i=index">
+            <label>
+                Alias:
+                <input type="text" [formControlName]="i" />
+            </label>
+        </div>
+    </div>
+    <button type="button" (click)="updateProfile()">update Profile</button>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+</form>
+<p>
+    Form Value: {{ profileForm.valid }} <br>
+    Form Status: {{ profileForm.status }}
+</p>
