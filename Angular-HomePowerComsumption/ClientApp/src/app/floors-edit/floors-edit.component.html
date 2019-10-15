@@ -2,11 +2,12 @@
     <div class="row justify-content-center ">
         <div class="col-md-4">
             <form [formGroup]="floorForm" (ngSubmit)="onSubmit()" ngNativeValidate>
-                <h4>Add new Floor</h4>
+                <h4>{{title}}</h4>
+                <input type="text" formControlName="id" hidden />
                 <div class="form-group">
-                    <input type="text" class="form-control " formControlName="name" placeholder="Name"required />
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger ">
-                        <div *ngIf="name.errors.required">
+                    <input type="text" class="form-control " formControlName="floorName" placeholder="Name"  required />
+                    <div *ngIf="floorName.invalid && (floorName.dirty || floorName.touched)" class="text-danger ">
+                        <div *ngIf="floorName.errors.required">
                             Name is required.
                         </div>
                     </div>
@@ -17,6 +18,7 @@
             </form>
             <p>
                 submitted :{{submitted }}
+                postorput:{{postorput}}
             </p>
             <p [ngClass]="{isSuccess:isSuccess, isFail:!isSuccess}">{{msg}}</p>
         </div>

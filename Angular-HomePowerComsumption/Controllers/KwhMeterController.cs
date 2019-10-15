@@ -6,6 +6,7 @@ using Angular_HomePowerComsumption.Data;
 using Angular_HomePowerComsumption.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Angular_HomePowerComsumption.Controllers
@@ -59,6 +60,35 @@ namespace Angular_HomePowerComsumption.Controllers
             return result;
 
             
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ResultModel> Put([FromBody]WatthourMeter w)
+        {
+            var result = new ResultModel();
+            var query = _context.WatthourMeters.Find(w.id);
+            if (query == null)
+            {
+                result.IsSuccess = false;
+                result.Message = "Not Found.";
+                return result;
+            }
+
+
+
+            try
+            {
+                _context.Entry(query).CurrentValues.SetValues(w);
+                await _context.SaveChangesAsync();
+                result.IsSuccess = true;
+                result.Message = "Edit data Success.";
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.IsSuccess = false;
+                result.Message = "Db Error";
+            }
+            return result;
         }
 
         [HttpDelete("{id}")]

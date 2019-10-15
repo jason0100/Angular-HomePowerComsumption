@@ -30,7 +30,7 @@ export class ApplianceEditComponent implements OnInit {
         private FloorService: FloorService,
         private KwhMeterService: KwhService) {
         this.ApplianceForm = this.fb.group({
-            id:[''],
+            id:[],
             name: ['', Validators.required],
             watt: ['',],
             kwh: ['',],
@@ -71,7 +71,19 @@ export class ApplianceEditComponent implements OnInit {
     
     onReset() {
         this.submitted = false;
-        this.ApplianceForm.reset();
+        /*Reset Form*/
+        this.ApplianceForm = this.fb.group({
+            id: [],
+            name: ['', Validators.required],
+            watt: ['',],
+            kwh: ['',],
+            voltage: ['',],
+            useHrPerMonth: ['', Validators.required],
+            description: [''],
+            floorId: ['', Validators.required],
+            watthourMeterId: ['', Validators.required],
+            spec: ['',]
+        });
         this.title = "Add New Appliance";
         this.postorput = true;
     }
@@ -79,12 +91,12 @@ export class ApplianceEditComponent implements OnInit {
     onSubmit() {
         if (this.postorput) {
             this.submitted = true;
-            //console.log('POST:' + JSON.stringify(this.ApplianceForm.value));
+            console.log('POST:' + JSON.stringify(this.ApplianceForm.value));
 
             console.log("Before patch");
             this.ApplianceForm.patchValue({
-                FloorId: +this.ApplianceForm.get('FloorId').value,
-                WatthourMeterId: +this.ApplianceForm.get('WatthourMeterId').value,
+                floorId: +this.ApplianceForm.get('floorId').value,
+                watthourMeterId: +this.ApplianceForm.get('watthourMeterId').value,
             });
             console.log("After patch");
             console.log('POST:' + JSON.stringify(this.ApplianceForm.value));
@@ -105,6 +117,10 @@ export class ApplianceEditComponent implements OnInit {
             console.log("After Post");
         }
         else {//this.postorput==false
+            this.ApplianceForm.patchValue({
+                floorId: +this.ApplianceForm.get('floorId').value,
+                watthourMeterId: +this.ApplianceForm.get('watthourMeterId').value,
+            });
             this.ApplianceService.put(this.ApplianceForm.value);
            
             this.ApplianceService.putChange.subscribe(result => {
@@ -138,7 +154,8 @@ export class ApplianceEditComponent implements OnInit {
                 voltage: this.Appliance.voltage,
                 useHrPerMonth: this.Appliance.useHrPerMonth,
                 description: this.Appliance.description,
-                WatthourMeter: this.Appliance.WatthourMeter,
+                WatthourMeter: this.Appliance.wattHourMeterName,
+                floorName: this.Appliance.floorName,
                 floorId: this.Appliance.floorId,
                 watthourMeterId: this.Appliance.watthourMeterId
             });
@@ -148,7 +165,4 @@ export class ApplianceEditComponent implements OnInit {
         })
     }
 
-    onPut() {
-
-    }
 }

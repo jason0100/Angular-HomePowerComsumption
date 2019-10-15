@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Angular_HomePowerComsumption.Data;
 using Angular_HomePowerComsumption.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Angular_HomePowerComsumption.Controllers
 {
@@ -19,14 +20,18 @@ namespace Angular_HomePowerComsumption.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
-        public IEnumerable<Floor> Get()
+        public IQueryable Get()
         {
             var query = from floor in _context.Floors
-                        select floor;
+                        select new {floor.id,
+                        floor.floorName,
+                        floor.Appliances};
 
-            return query.ToArray();
+            return query;
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Floor>> Get(int id)
         {
@@ -46,7 +51,7 @@ namespace Angular_HomePowerComsumption.Controllers
             var query = from floor in _context.Floors
                         where floor.floorName == f.floorName
                         select floor;
-            if (query.FirstOrDefault() != null)
+            if (query.Count() != 0)
             {
                 result.IsSuccess = false;
                 result.Message = "Dublicated Floor.";
@@ -61,6 +66,35 @@ namespace Angular_HomePowerComsumption.Controllers
             return result;
 
 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ResultModel> Put([FromBody]Floor f)
+        {
+            var result = new ResultModel();
+            var query = _context.Floors.Find(f.id);
+            if (query == null)
+            {
+                result.IsSuccess = false;
+                result.Message = "Not Found.";
+                return result;
+            }
+
+
+
+            try
+            {
+                _context.Entry(query).CurrentValues.SetValues(f);
+                await _context.SaveChangesAsync();
+                result.IsSuccess = true;
+                result.Message = "Edit data Success.";
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.IsSuccess = false;
+                result.Message = "Db Error";
+            }
+            return result;
         }
 
         [HttpDelete("{id}")]

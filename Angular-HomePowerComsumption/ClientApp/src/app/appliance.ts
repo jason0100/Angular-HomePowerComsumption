@@ -7,10 +7,11 @@ export class Appliance {
     watt: number;
     kwh: number;
     voltage: number;
+    maxA: number;
     useHrPerMonth: number;
     description: string;
-    Floor: string;
-    WatthourMeter: string;
+    floorName: string;
+    wattHourMeterName: string;
     spec: string;
     watthourMeterId: number;
     floorId: number;

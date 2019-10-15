@@ -23,45 +23,93 @@ export class KwhMeterEditComponent implements OnInit {
     msg: string;
     kwhForm: FormGroup;
     isSuccess: boolean;
-
+    title = "Add New Appliance";
+    postorput: boolean;
+    kwhMeter: KwhMeter;
     constructor(private fb: FormBuilder, private http: HttpClient, private kwhService: KwhService) {
         this.kwhForm = this.fb.group({
-            name: ['', Validators.required],
+            id:[],
+            wattHourMeterName: ['', Validators.required],
             kwh: [0, [Validators.required,Validators.pattern("^[0-9]*$")]]
             //kwh:['',[CustomValidator.numeric]]
         });
     }
-
-  ngOnInit() {
+    get id() { return this.kwhForm.get('id'); }
+    get wattHourMeterName() { return this.kwhForm.get('wattHourMeterName'); }
+    get kwh() { return this.kwhForm.get('kwh'); }
+    ngOnInit() {
+        this.getId();
+        this.postorput = true;
   }
     onSubmit() {
-        this.submitted = true;
-        console.log( 'POST:'+this.kwhForm.value);
-        
+        if (this.postorput) {
+            this.submitted = true;
+            console.log('POST:' + JSON.stringify(this.kwhForm.value));
 
-        /** POST*/
-        this.kwhService.post(this.kwhForm.value);
-        this.kwhService.postChange.subscribe(result => {
-            console.log('result= ' + JSON.stringify(result))
-            this.isSuccess = result.isSuccess;
-            if (this.isSuccess) {
-                
-                this.msg = "Add Succeed.";
-            }
-            else {
-                this.msg = result.message;
-            }
-        });
 
+            /** POST*/
+            this.kwhService.post(this.kwhForm.value);
+            console.log("kwhService.post(this.kwhForm.value)=" + JSON.stringify(this.kwhForm.value));
+            this.kwhService.postChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
+
+                    this.msg = "Add Succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+            });
+        }
+        else {//this.postorput==false
+            console.log('PUT:' + JSON.stringify(this.kwhForm.value));
+            this.kwhService.put(this.kwhForm.value);
+
+            this.kwhService.putChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
+                    this.onReset();
+                    this.msg = "Edit Succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+                console.log("msg=" + this.msg);
+            });
+        }
       
        
     }
-   
-    get name() { return this.kwhForm.get('name'); }
-    get kwh() { return this.kwhForm.get('kwh'); }
+    getId() {
+        this.kwhService.getIdChange.subscribe(result => {
+
+            this.kwhMeter = result;
+  
+            this.kwhForm.patchValue({
+                id: this.kwhMeter.id,
+                wattHourMeterName: this.kwhMeter.wattHourMeterName,
+                
+
+            });
+            console.log('PUT:' + JSON.stringify(this.kwhForm.value));
+            this.title = "Edit KwhMeter";
+            this.postorput = false;
+        })
+    }
+  
 
     onReset() {
+        this.kwhForm = this.fb.group({
+            id: [],
+            wattHourMeterName: ['', Validators.required],
+            kwh: [0, [Validators.required, Validators.pattern("^[0-9]*$")]]
+            //kwh:['',[CustomValidator.numeric]]
+        });
         this.submitted = false;
-        this.kwhForm.reset();
+        //this.kwhForm.reset();
+        this.title = "Add New Appliance";
+        this.postorput = true;
     }
 }

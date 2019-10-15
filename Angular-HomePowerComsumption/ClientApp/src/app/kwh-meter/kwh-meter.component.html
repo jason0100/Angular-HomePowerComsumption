@@ -3,10 +3,6 @@
         <div class="inline">   <h2>KWHMeters</h2><span></span></div>
      <p  [ngClass]="{isSuccess:isSuccess, isFail:!isSuccess}">{{msg}}</p>
         
-        <!--<input type="text" class="form-control" [(ngModel)]="searchKwhMeterId" />-->
-        <!--<button class="btn btn-primary" (click)="getAppliance(searchKwhMeterId)">Search</button>
-        <p *ngIf="!searchError">{{searchKwhMeter.name}}</p>
-        <p *ngIf="searchError">{{searchError}}</p>-->
 
        
     </div>
@@ -18,13 +14,9 @@
                 <dt >
                     <span> {{m.wattHourMeterName}}電表: </span>
                     <span class="fa fa-trash  float-right mr-2" (click)="deleteMeter(m.id)"></span>
-                    <span class="fa fa-pen float-right mr-2" (click)="editMeter(m.name)"></span>
+                    <span class="fa fa-pen float-right mr-2" (click)="editMeter(m.id)"></span>
                 </dt>
-                <dt *ngIf="false">
-                    <input  name={{m.id}} value={{m.wattHourMeterName}} 電表: size="10" (focusout) = "focusoutHandler($event)"/>
-                    <i class="fa fa-save float-right" style="font-size:large" (click)="saveEdit(m.name)"></i>
-                </dt>
-                
+             
                 <dd>
                     Total {{m.kwh}} kwh per month
                 </dd>

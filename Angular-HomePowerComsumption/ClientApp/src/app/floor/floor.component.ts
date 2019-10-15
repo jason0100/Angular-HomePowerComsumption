@@ -8,7 +8,7 @@ import { FloorService } from '../floor.service';
   styleUrls: ['./floor.component.css']
 })
 export class FloorComponent implements OnInit {
-    private kwhApiUrl = "api/KwhMeter";
+ 
     floors: Floor[];
     msg: string;
     isSuccess: boolean;
@@ -24,19 +24,27 @@ export class FloorComponent implements OnInit {
   }
 
     deleteFloor(id: number) {
-        console.log(id);
+        if (confirm("Are you sure to delete this item?")) { 
+            console.log(id);
 
-        this.floorService.delete(id);
-        this.floorService.deleteChange.subscribe(result => {
-            console.log('result= ' + JSON.stringify(result))
-            this.isSuccess = result.isSuccess;
-            if (this.isSuccess) {
+            this.floorService.delete(id);
+            this.floorService.deleteChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
 
-                this.msg = "Delete succeed.";
-            }
-            else {
-                this.msg = result.message;
-            }
-        });
+                    this.msg = "Delete succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+            });
+        }
+    }
+
+    editFloor(id: number) {
+
+        this.floorService.getId(id);
+
     }
 }

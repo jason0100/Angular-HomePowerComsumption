@@ -37,33 +37,29 @@ export class KwhMeterComponent implements OnInit {
     }
 
 
-    deleteMeter(id:number) {
-        console.log(id);
-        
-        this.kwhService.delete(id);
-        this.kwhService.deleteChange.subscribe(result => {
-            console.log('result= ' + JSON.stringify(result))
-            this.isSuccess = result.isSuccess;
-            if (this.isSuccess) {
+    deleteMeter(id: number) {
 
-                this.msg = "Delete succeed.";
-            }
-            else {
-                this.msg = result.message;
-            }
-        });
+        console.log(id);
+        if (confirm("Are you sure to delete this?")) {
+            this.kwhService.delete(id);
+            this.kwhService.deleteChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
+
+                    this.msg = "Delete succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+            });
+        }
     }
 
-    editMeter(name:string) {
-        console.log(name);
+    editMeter(id:number) {
+        this.kwhService.getId(id);
        
 
-        //for (let i = 0; i < this.kwhMeters.length; i++) {
-        //    if (this.kwhMeters[i].id == id) {
-        //        this.kwhService.edit(this.kwhMeters[i]);
-        //        break;
-        //    }
-        //}
     }
     saveEdit(id:number) {
         console.log(id);
@@ -75,16 +71,4 @@ export class KwhMeterComponent implements OnInit {
 
     }
 
-    //getAppliance(id: number) {
-    //    if (isNaN(id)) {
-    //        return;
-    //    }
-    //    let url = `${this.kwhApiUrl}/${id}`;
-  
-    //    this.http.get<any>(url).subscribe(result => {
-           
-    //            this.searchKwhMeter = <KwhMeter>result;
-          
-    //    }, error => console.error(error));
-    //}
 }

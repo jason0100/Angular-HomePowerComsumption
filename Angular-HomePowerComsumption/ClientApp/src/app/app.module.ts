@@ -19,6 +19,7 @@ import { NameEditorComponent } from './name-editor/name-editor.component';
 import { HighlightDirective } from './highlight.directive';
 import { ToggleInputDirective } from './toggle-input.directive';
 import { ApplianceEditComponent } from './appliance-edit/appliance-edit.component';
+import { FloorapplianceComponent } from './floorappliance/floorappliance.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ApplianceEditComponent } from './appliance-edit/appliance-edit.componen
     NameEditorComponent,
     HighlightDirective,
     ToggleInputDirective,
-    ApplianceEditComponent
+    ApplianceEditComponent,
+    FloorapplianceComponent
   ],
     imports: [
         

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FloorService } from '../floor.service';
+import { Floor } from '../floor';
 
 @Component({
   selector: 'app-floors-edit',
@@ -14,43 +15,88 @@ export class FloorsEditComponent implements OnInit {
     msg: string;
     floorForm: FormGroup;
     isSuccess: boolean;
+    postorput: boolean;
+    title = "Add New Appliance";
+    floor: Floor;
     constructor(private fb: FormBuilder, private floorService: FloorService) {
         this.floorForm = this.fb.group({
-            name: ['', Validators.required],
+            id: [],
+            floorName: ['', Validators.required],
             
         });
     }
+    get floorName() { return this.floorForm.get('floorName'); }
+    get id() { return this.floorForm.get('id'); }
 
-  ngOnInit() {
+    ngOnInit() {
+        this.getId();
+        this.postorput = true;
   }
-    get name() { return this.floorForm.get('name'); }
+   
 
     onReset() {
         this.submitted = false;
         this.floorForm.reset();
+        this.title = "Add New Appliance";
+        this.postorput = true;
     }
 
     onSubmit() {
-        this.submitted = true;
-        console.log('POST:' + this.floorForm.value);
+        if (this.postorput) {
+            this.submitted = true;
+            console.log('POST:' + JSON.stringify(this.floorForm.value));
 
 
-        /** POST*/
-        this.floorService.post(this.floorForm.value);
-        this.floorService.postChange.subscribe(result => {
-            console.log('result= ' + JSON.stringify(result))
-            this.isSuccess = result.isSuccess;
-            if (this.isSuccess) {
+            /** POST*/
+            this.floorService.post(this.floorForm.value);
+            this.floorService.postChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
 
-                this.msg = "Add Succeed.";
-            }
-            else {
-                this.msg = result.message;
-            }
-        });
+                    this.msg = "Add Succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+            });
 
+        }
+        else {//this.postorput==false
+            this.floorService.put(this.floorForm.value);
 
+            this.floorService.putChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
+                    this.onReset();
+                    this.msg = "Edit Succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+                console.log("msg=" + this.msg);
+            });
+        }
+    }
 
+    getId() {
+        this.floorService.getIdChange.subscribe(result => {
+
+            this.floor = result;
+            console.log('floorEdit Component result= ' + JSON.stringify(result))
+            console.log('floorEdit Component floor= ' + JSON.stringify(this.floor))
+
+            this.floorForm.patchValue({
+                id: this.floor.id,
+                floorName: this.floor.floorName,
+                
+                
+            });
+            console.log('PUT:' + JSON.stringify(this.floorForm.value));
+            this.title = "Edit Floor";
+            this.postorput = false;
+        })
     }
 
 }

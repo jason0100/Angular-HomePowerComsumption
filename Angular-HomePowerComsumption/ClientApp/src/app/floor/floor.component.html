@@ -6,10 +6,11 @@
                 <dt>
                     <span> {{m.floorName}}樓層 </span>
                     <span class="fa fa-trash  float-right mr-2" (click)="deleteFloor(m.id)"></span>
-                    <span class="fa fa-pen float-right mr-2" (click)="editFloor(m.name)"></span>
+                    <span class="fa fa-pen float-right mr-2" (click)="editFloor(m.id)"></span>
                 </dt>
                 <dd>
 
+                
                 </dd>
                 <dt *ngIf="false">
                     <input name={{m.id}} value={{m.floorName}} 樓層: size="10" (focusout)="focusoutHandler($event)" />

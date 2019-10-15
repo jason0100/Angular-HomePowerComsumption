@@ -32,30 +32,29 @@ export class ApplianceComponent implements OnInit {
 
 
     deleteAppliance(id: number) {
-        console.log('id='+id);
+        if (confirm("Are you sure to delete this item?")) {
+            console.log('id=' + id);
 
-        this.applianceService.delete(id);
-        this.applianceService.deleteChange.subscribe(result => {
-            console.log('result= ' + JSON.stringify(result))
-            console.log('result.isSuccess=' + result.isSuccess)
-            this.isSuccess = result.isSuccess;
-            if (this.isSuccess) {
+            this.applianceService.delete(id);
+            this.applianceService.deleteChange.subscribe(result => {
+                console.log('result= ' + JSON.stringify(result))
+                console.log('result.isSuccess=' + result.isSuccess)
+                this.isSuccess = result.isSuccess;
+                if (this.isSuccess) {
 
-                this.msg = "Delete succeed.";
-            }
-            else {
-                this.msg = result.message;
-            }
-        });
+                    this.msg = "Delete succeed.";
+                }
+                else {
+                    this.msg = result.message;
+                }
+            });
+        }
     }
 
     editAppliance(id: number) {
        
         this.applianceService.getId(id);
        
-    }
-    saveEdit(id: number) {
-        console.log(id);
     }
 
     private focusoutHandler(event) {

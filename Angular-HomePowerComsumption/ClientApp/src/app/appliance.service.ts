@@ -56,7 +56,7 @@ export class ApplianceService {
         }
         const url = `${this.appliancesApiUrl}/${id}`;
 
-        this.http.get<Appliance[]>(url, httpOptions).subscribe(result => {
+        this.http.get<Appliance>(url, httpOptions).subscribe(result => {
             this.appliance = result;
             this.getIdChange.emit(this.appliance);
         });
@@ -88,7 +88,7 @@ export class ApplianceService {
     }
 
     delete(id: number) {
-        if (confirm("Are you sure to delete this?")) {
+        
         
         const httpOptions = {
             headers: new HttpHeaders({
@@ -110,6 +110,6 @@ export class ApplianceService {
             this.deleteChange.emit(this.result);
         });
 
-        }
+        
     }
 }

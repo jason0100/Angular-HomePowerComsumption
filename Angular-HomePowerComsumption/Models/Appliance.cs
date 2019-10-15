@@ -8,7 +8,7 @@ namespace Angular_HomePowerComsumption.Models
 {
     public class Appliance
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         [Display(Name = "名字")]
         public string name { get; set; }
         public string spec { get; set; }

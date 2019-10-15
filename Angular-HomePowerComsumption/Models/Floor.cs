@@ -10,7 +10,7 @@ namespace Angular_HomePowerComsumption.Models
          public Floor() {
             List<Appliance> Appliances = new List<Appliance>();
         }
-        public int id {get;set;}
+        public int? id {get;set;}
         public string floorName { get; set; }
         public List<Appliance> Appliances { get; set; }
     }
