@@ -17,7 +17,7 @@ export class KwhMeterComponent implements OnInit {
     private kwhApiUrl = "api/KwhMeter";
     kwhMeters: KwhMeter[];
     searchKwhMeterId: number;
-    searchKwhMeter: KwhMeter = new KwhMeter();
+    searchKwhMeter: KwhMeter = new KwhMeter(0,0,0,0);
     searchError: string;
     msg: string;
     isSuccess: boolean;

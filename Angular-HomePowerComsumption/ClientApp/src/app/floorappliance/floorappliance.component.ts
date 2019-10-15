@@ -16,7 +16,10 @@ export class FloorapplianceComponent implements OnInit {
     isSuccess: boolean;
     meters: KwhMeter[] = [];
     summerBill: number[]=[];
-    nonSummerBill:number[]=[];
+    summerBillCalculation: string[]=[];
+    nonSummerBill: number[] = [];
+    nonSummerBillCalculation: string[]=[];
+
 
     constructor(private floorService: FloorService, private kwhService: KwhService) { }
 
@@ -64,71 +67,111 @@ export class FloorapplianceComponent implements OnInit {
             for (let m = 0; m < this.meters.length; m++) {
                 console.log("this.meters[m].kwh="+this.meters[m].kwh);
                 if (this.meters[m].kwh < 121) {
-                    this.summerBill.push( this.meters[m].kwh * 1.63);
+                    this.summerBill.push(this.meters[m].kwh * 1.63);
+                    this.summerBillCalculation.push(this.meters[m].kwh+"x1.63");
                     this.nonSummerBill.push(this.meters[m].kwh * 1.63);
+                    this.nonSummerBillCalculation.push(this.meters[m].kwh + "x1.63");
+
+
                 }
                 else if (this.meters[m].kwh < 331) {
-                    this.summerBill.push( 120 * 1.63);
+                    this.summerBill.push(120 * 1.63);
+                    this.summerBillCalculation.push("120x1.63");
                     this.summerBill[m] += (this.meters[m].kwh - 120) * 2.38;
-                    this.nonSummerBill.push( 120 * 1.63);
+                    this.summerBillCalculation[m] += ("+" +(this.meters[m].kwh - 120)+"x2.38");
+                    this.nonSummerBill.push(120 * 1.63);
+                    this.nonSummerBillCalculation.push("120x1.63");
                     this.nonSummerBill[m] += (this.meters[m].kwh - 120) * 2.1;
-                    this.summerBill[m] = parseFloat((this.summerBill[m]).toFixed(0));
-                    this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]).toFixed(0));
+                    this.nonSummerBillCalculation[m] += ("+" +(this.meters[m].kwh - 120) + "x2.1");
                     //console.log("this.summerBill["+m+"]=" + this.summerBill[m]);
                 }
                 else if (this.meters[m].kwh < 501) {
-                    this.summerBill.push( 120 * 1.63);
+                    this.summerBill.push(120 * 1.63);
+                    this.summerBillCalculation.push("120x1.63");
                     this.summerBill[m] += 210 * 2.38;
+                    this.summerBillCalculation[m] += ("+210x2.38");
                     this.summerBill[m] += (this.meters[m].kwh - 330) * 3.52;
-                    this.nonSummerBill.push( 120 * 1.63);
+                    this.summerBillCalculation[m] += ("+" +(this.meters[m].kwh - 330) + "x3.52");
+                    this.nonSummerBill.push(120 * 1.63);
+                    this.nonSummerBillCalculation.push("120x1.63");
                     this.nonSummerBill[m] += 210 * 2.1;
+                    this.nonSummerBillCalculation[m] +=("+210x2.1");
                     this.nonSummerBill[m] += (this.meters[m].kwh - 330) * 2.89;
-                    this.summerBill[m] = parseFloat((this.summerBill[m] * 2).toFixed(0));
-                    this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]*2).toFixed(0));
-                    //console.log("this.summerBill["+m+"]=" + this.summerBill[m]);
+                    this.nonSummerBillCalculation[m] += ("+" +(this.meters[m].kwh - 330) + "x2.89");
+                   
+                    console.log("this.summerBill["+m+"]=" + this.summerBill[m]);
                 }
                 else if (this.meters[m].kwh < 701) {
-                    this.summerBill.push( 120 * 1.63);
+                    this.summerBill.push(120 * 1.63);
+                    this.summerBillCalculation.push("120x1.63");
                     this.summerBill[m] += 210 * 2.38;
+                    this.summerBillCalculation[m] += ("+210x2.38");
                     this.summerBill[m] += 170 * 3.52;
+                    this.summerBillCalculation[m] += ("+170x3.52");
                     this.summerBill[m] += (this.meters[m].kwh - 500) * 4.8;
-                    this.nonSummerBill.push( 120 * 1.63);
+                    this.summerBillCalculation[m] += ("+" +(this.meters[m].kwh - 500) + "x4.8");
+                    this.nonSummerBill.push(120 * 1.63);
+                    this.nonSummerBillCalculation.push("120x1.63");
                     this.nonSummerBill[m] += 210 * 2.1;
+                    this.nonSummerBillCalculation[m] +=("+210x2.1");
                     this.nonSummerBill[m] += 170 * 2.89;
+                    this.nonSummerBillCalculation[m] +=("+170x2.89");
                     this.nonSummerBill[m] += (this.meters[m].kwh - 500) * 3.94;
-                    this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]).toFixed(0));
-                    this.summerBill[m] = parseFloat((this.summerBill[m]).toFixed(0));
+                    this.nonSummerBillCalculation[m] += ("+" +(this.meters[m].kwh - 500) + "x3.94");
+                  
                 }
                 else if (this.meters[m].kwh < 1001) {
-                    this.summerBill.push( 120 * 1.63);
+                    this.summerBill.push(120 * 1.63);
+                    this.summerBillCalculation.push("120x1.63");
                     this.summerBill[m] += 210 * 2.38;
+                    this.summerBillCalculation[m] += ("+210x2.38");
                     this.summerBill[m] += 170 * 3.52;
+                    this.summerBillCalculation[m] += ("+170x3.52");
                     this.summerBill[m] += 200 * 4.8;
+                    this.summerBillCalculation[m] += ("+200x4.8");
                     this.summerBill[m] += (this.meters[m].kwh - 700) * 5.66;
+                    this.summerBillCalculation[m] += ("+" +(this.meters[m].kwh - 700) + "x5.66");
                     this.nonSummerBill.push(120 * 1.63);
+                    this.nonSummerBillCalculation.push("120x1.63");
                     this.nonSummerBill[m] += 210 * 2.1;
+                    this.nonSummerBillCalculation[m] += ("+210x2.1");
                     this.nonSummerBill[m] += 170 * 2.89;
+                    this.nonSummerBillCalculation[m] += ("+170x2.89");
                     this.nonSummerBill[m] += 200 * 3.94;
+                    this.nonSummerBillCalculation[m] += ("+200x3.94");
                     this.nonSummerBill[m] += (this.meters[m].kwh - 700) * 4.6;
-                    this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]).toFixed(0));
-                    this.summerBill[m] = parseFloat((this.summerBill[m]).toFixed(0));
+                    this.nonSummerBillCalculation[m] += ("+" +(this.meters[m].kwh - 700) + "x4.6");
+                 
                 }
                 else if (this.meters[m].kwh > 1000) {
-                    this.summerBill.push( 120 * 1.63);
+                    this.summerBill.push(120 * 1.63);
+                    this.summerBillCalculation.push("120x1.63");
                     this.summerBill[m] += 210 * 2.38;
+                    this.summerBillCalculation[m] += ("+210x2.38");
                     this.summerBill[m] += 170 * 3.52;
+                    this.summerBillCalculation[m] += ("+170x3.52");
                     this.summerBill[m] += 200 * 4.8;
+                    this.summerBillCalculation[m] += ("+200x4.8");
                     this.summerBill[m] += 300 * 5.66;
+                    this.summerBillCalculation[m] += ("+300x5.66");
                     this.summerBill[m] += (this.meters[m].kwh - 1000) * 6.41;
+                    this.summerBillCalculation[m] += ("+" +(this.meters[m].kwh - 1000) + "x6.41");
                     this.nonSummerBill.push(120 * 1.63);
+                    this.nonSummerBillCalculation.push("120x1.63");
                     this.nonSummerBill[m] += 210 * 2.1;
+                    this.nonSummerBillCalculation[m] += ("+210x2.1");
                     this.nonSummerBill[m] += 170 * 2.89;
+                    this.nonSummerBillCalculation[m] += ("+170x2.89");
                     this.nonSummerBill[m] += 200 * 3.94;
+                    this.nonSummerBillCalculation[m] += ("+200x3.94");
                     this.nonSummerBill[m] += 300 * 4.6;
+                    this.nonSummerBillCalculation[m] += ("+300x4.6");
                     this.nonSummerBill[m] += (this.meters[m].kwh - 1000) * 5.03;
-                    this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]).toFixed(0));
-                    this.summerBill[m] = parseFloat((this.summerBill[m]).toFixed(0));
+                    this.nonSummerBillCalculation[m] += ("+" +(this.meters[m].kwh - 1000) + "x5.03");
+                  
                 }
+                this.summerBill[m] = parseFloat((this.summerBill[m]*2).toFixed(0));
+                this.nonSummerBill[m] = parseFloat((this.nonSummerBill[m]*2).toFixed(0));
             }
 
         });
