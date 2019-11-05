@@ -24,18 +24,18 @@ export class KwhService {
     get(): void {
 
         this.http.get<KwhMeter[]>(this.kwhApiUrl).subscribe(result => {
-            console.log("result=" + JSON.stringify(result));
+            //console.log("result=" + JSON.stringify(result));
             this.kwhMeters.length = 0;
             for (let i = 0; i < result.length; i++) {
                 const data = new KwhMeter(result[i].id, result[i].wattHourMeterName, result[i].kwh, 0);
-                console.log('data=' + JSON.stringify(data));
+                //console.log('data=' + JSON.stringify(data));
                 this.kwhMeters.push(data);
             }
             
             //this.kwhMeters = result;
             //this.parseData(result);
             this.kwhMetersChange.emit(this.kwhMeters);
-            console.log('service kwhMeters=' + JSON.stringify(this.kwhMeters));
+            //console.log('service kwhMeters=' + JSON.stringify(this.kwhMeters));
         });
    
       

@@ -1,0 +1,75 @@
+tbody, ul {
+    counter-reset: num 0;
+}
+
+.list::before {
+    margin:0 8px 0 0;
+    width:20px;
+    height:20px;
+    background:#33a6b8;
+    color:#ffffff;
+    text-align:center;
+    counter-increment:num;
+    content:counter(num);
+    float:left;
+}
+ul {
+ 
+}
+
+
+ul li {
+    border-bottom: 1px solid #dedede;
+    padding: 10px 0;
+}
+.meterBlock {
+    /*padding-bottom: 30px;*/
+    border-left: 1px solid #33a6b8;
+    padding-left: 15px;
+    margin-bottom: 40px;
+    display: inline-block;
+    
+}
+.meterDashBoard {
+    /*position:fixed;*/
+}
+.meterBlock ul {
+    /*position:relative;*/
+    margin-top: 40px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+.label {
+    position:absolute;
+    left:15px;
+  
+    /*padding: 0;*/
+    width: 100px;
+    height: 36px;
+   
+    background-color: #33a6b8;
+    color: #ffffff;
+}
+    .label dfn {
+        position: absolute;
+        width: 20px;
+        height: 36px;
+        top: 0;
+        right: -20px;
+        background: url(d:\[coding]\[github]\angular-homepowercomsumption\angular-homepowercomsumption\clientapp\src\assets\img\com_icon.png) no-repeat;
+        
+    }
+.label p {
+    margin: 0;
+    padding: 4px 0 4px 8px;
+
+}
+
+/*h5 {
+    background-color: #33a6b8;
+    color: #ffffff;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+}*/

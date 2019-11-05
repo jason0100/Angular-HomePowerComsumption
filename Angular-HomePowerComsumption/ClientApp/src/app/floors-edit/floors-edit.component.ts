@@ -16,7 +16,7 @@ export class FloorsEditComponent implements OnInit {
     floorForm: FormGroup;
     isSuccess: boolean;
     postorput: boolean;
-    title = "Add New Appliance";
+    title = "Add New Floor";
     floor: Floor;
     constructor(private fb: FormBuilder, private floorService: FloorService) {
         this.floorForm = this.fb.group({
@@ -37,7 +37,7 @@ export class FloorsEditComponent implements OnInit {
     onReset() {
         this.submitted = false;
         this.floorForm.reset();
-        this.title = "Add New Appliance";
+        this.title = "Add New Floor";
         this.postorput = true;
     }
 

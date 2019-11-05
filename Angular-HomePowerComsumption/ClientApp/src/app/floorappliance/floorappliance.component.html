@@ -2,60 +2,76 @@
     <div class="col-md-8">
         <div class="inline">   <h2>Floors</h2><span></span></div>
         <div class="" *ngFor="let m of floors">
-            <dl>
-                <dt>
-                    <span> {{m.floorName}}樓層 </span>
-
-                </dt>
-            </dl>
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Watt</th>
-                            <th>KWH/month</th>
-                            <th>Max A</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let a of m.appliances">
-                            <td> {{a.name}}{{a.spec}}</td>
-                            <td>  <span *ngIf="a.watt">Watt:{{a.watt}}W</span></td>
-                            <td ><span *ngIf="a.kwh">{{a.kwh}}度電</span></td>
-                            <td>{{a.maxA}}A</td>
-                        </tr>
-
-
-                
-                    </tbody>
-                </table>
-
           
+                    <h5> {{m.floorName}}樓層 </h5>
+
+            <table *ngIf="m.appliances.length>0;else elseTmp1" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Watt</th>
+                        <th>KWH/month</th>
+                        <th>Max A</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let a of m.appliances;let i =index">
+
+                        <td>  <span class="list " [attr.data-num]=i+1></span> {{a.name}}{{a.spec}}</td>
+                        <td>  <span *ngIf="a.watt">Watt:{{a.watt}}W</span></td>
+                        <td><span *ngIf="a.kwh">{{a.kwh}}度電</span></td>
+                        <td>{{a.maxA}}A</td>
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+            <ng-template #elseTmp1>
+                <p>No Appliance.</p>
+            </ng-template>
+
 
         </div>
 
     </div>
-    <div class="col-md-4">
-        <div class="" *ngFor="let m of meters;let i=index">
-            <dl>
-                <dt>
-                    <span> {{m.wattHourMeterName}}電表: </span>
-                  
-                </dt>
-        
-                <dd>
-                    Max A={{m.maxA}}A<br />
-                    Total {{m.kwh}} kwh per month<br />
-                    帳單(兩個月)試算:  <span style="font-style:italic;font-size:small;color:grey">*非時間電價*非營業用</span><br />
+    <div class="col-md-4 ">
+        <div class="meterDashBoard">
+            <!--<span>meters.id={{floors[0].id}}</span>--> 
+            <div class="meterBlock" *ngFor="let m of meters;let i=index">
 
-                    夏月(6/1~9/30):({{summerBillCalculation[i]}})x2=
-                    {{summerBill[i]}}元<br />
-                    非夏月:({{nonSummerBillCalculation[i]}})x2=
-                    {{nonSummerBill[i]}}元<br />
-                </dd>
-            </dl>
+                <div class="label">
+                    <p> {{m.wattHourMeterName}}電表</p>
+                    <dfn class=""></dfn>
+                </div>
 
+
+
+                <ul>
+
+
+                    <li class="list"> Max A={{m.maxA}}A</li>
+
+                    <li class="list">Total {{m.kwh}} kwh per month</li>
+
+                    <li class="list">
+                        帳單(兩個月)試算:
+                        <span style="font-style:italic;font-size:small;color:grey">*非時間電價&nbsp;*非營業用</span>
+                        <br />
+
+
+                        夏月(6/1~9/30):({{summerBillCalculation[i]}})x2=
+                        {{summerBill[i]}}元
+
+                        非夏月:({{nonSummerBillCalculation[i]}})x2=
+                        {{nonSummerBill[i]}}元
+                    </li>
+
+                </ul>
+
+
+            </div>
         </div>
     </div>
 </div>

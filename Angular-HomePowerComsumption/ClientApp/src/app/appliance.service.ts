@@ -28,7 +28,7 @@ export class ApplianceService {
             this.Appliances = result;
             this.appliancesChange.emit(this.Appliances);
         });
-        console.log('service Appliance=' + JSON.stringify(this.Appliances));
+        //console.log('service Appliance=' + JSON.stringify(this.Appliances));
 
     }
 

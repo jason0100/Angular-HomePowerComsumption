@@ -26,7 +26,7 @@ export class ApplianceComponent implements OnInit {
         this.applianceService.get();
         this.applianceService.appliancesChange.subscribe(m => {
             this.appliances = m
-            console.log(' Appliance=' + JSON.stringify(this.appliances));
+            //console.log(' Appliance=' + JSON.stringify(this.appliances));
         });
     }
 

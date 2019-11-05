@@ -48,11 +48,11 @@ export class ApplianceEditComponent implements OnInit {
         this.FloorService.get();
         this.KwhMeterService.kwhMetersChange.subscribe(k => {
             this.kwhMeters = k;
-            console.log(' kwhMeters=' + JSON.stringify(this.kwhMeters));
+            //console.log(' kwhMeters=' + JSON.stringify(this.kwhMeters));
         });
         this.FloorService.floorsChange.subscribe(f => {
             this.floors = f;
-            console.log(' floors=' + JSON.stringify(this.floors));
+            //console.log(' floors=' + JSON.stringify(this.floors));
         });
 
         this.getId();

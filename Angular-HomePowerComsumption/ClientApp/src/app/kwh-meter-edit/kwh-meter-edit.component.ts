@@ -23,7 +23,7 @@ export class KwhMeterEditComponent implements OnInit {
     msg: string;
     kwhForm: FormGroup;
     isSuccess: boolean;
-    title = "Add New Appliance";
+    title = "Add New Meter";
     postorput: boolean;
     kwhMeter: KwhMeter;
     constructor(private fb: FormBuilder, private http: HttpClient, private kwhService: KwhService) {
@@ -109,7 +109,7 @@ export class KwhMeterEditComponent implements OnInit {
         });
         this.submitted = false;
         //this.kwhForm.reset();
-        this.title = "Add New Appliance";
+        this.title = "Add New Meter";
         this.postorput = true;
     }
 }

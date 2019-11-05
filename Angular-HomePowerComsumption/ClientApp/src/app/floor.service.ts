@@ -25,7 +25,7 @@ export class FloorService {
             this.Floors = result;
             this.floorsChange.emit(this.Floors);
         });
-        console.log('service Floors=' + JSON.stringify( this.Floors));
+        //console.log('service Floors=' + JSON.stringify( this.Floors));
 
     }
 
